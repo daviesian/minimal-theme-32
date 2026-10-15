@@ -1,0 +1,27 @@
+shared_config:
+  shared_config_repo: "https://alm-github.systems.uk.hsbc/Cyber-Anvil/devx_build_jenkins_pipeline"
+  shared_config_filename: "ci-config.yaml"
+  shared_config_branch: "master"
+  shared_config_jenkins_credential_id: github-access # required: Jenkins credential ID to access the shared config repo
+
+appname: "List Management UI"  # must align with ICE Component name
+
+controls:
+  cyberflows:
+    dast:
+      enabled: true
+      configuration_id: "Pqf9VrJy4RVI5Xv35lLlwMBII"
+  ice_component_name: "List Management UI"
+    
+deploy:
+  g3:
+    rwi:
+      deployments:
+        non_prod:
+          - summary: "Anvil app - ${params.app_name} release"
+            target_environment: "UAT"
+            promoted_by: "${params.staff_id}"
+            release_now: "yes"
+            release_args: {'anvil_app_id':'FRXVX7KOB3SVVUJR', 'anvil_environment_id': '483', 'anvil_tag': "${params.version}"}
+        production:
+            release_args: {'anvil_app_id':'TL2CFAXFJ27GJHW5', 'anvil_environment_id': '479', 'anvil_tag': "${params.version}"}
